@@ -1,0 +1,94 @@
+<mujoco model="uf850_nohand">
+  <compiler angle="radian" autolimits="true" meshdir="assets"/>
+  <option integrator="implicitfast"/>
+
+  <default>
+   <default class="ur850">
+    <joint limited="true" damping="10" armature="0.1" frictionloss="1" />
+    <geom condim="4" contype="1" conaffinity="15" friction="0.9 0.2 0.2" solref="0.001 2" />
+    <motor ctrllimited="true" />
+    <equality solref="0.001 2" />
+    <default class="visualgeom">
+      <geom material="visualgeom" condim="1" contype="0" conaffinity="0" />
+    </default>
+  </default>
+
+  <asset>
+    <mesh file="visual/link_base.stl"/>
+    <mesh file="visual/link1.stl"/>
+    <mesh file="visual/link2.stl"/>
+    <mesh file="visual/link3.stl"/>
+    <mesh file="visual/link4.stl"/>
+    <mesh file="visual/link5.stl"/>
+    <mesh file="visual/link6.stl"/>
+    <mesh name="link_base_c" file="collision/link_base.stl"/>
+    <mesh name="link1_c" file="collision/link1.stl"/>
+    <mesh name="link2_c" file="collision/link2.stl"/>
+    <mesh name="link3_c" file="collision/link3.stl"/>
+    <mesh name="link4_c" file="collision/link4.stl"/>
+    <mesh name="link5_c" file="collision/link5.stl"/>
+    <mesh name="link6_c" file="collision/link6.stl"/>
+    <texture name="texplane" type="2d" builtin="checker" rgb1=".0 .0 .0" rgb2=".8 .8 .8" width="100" height="100" />
+    <material name="matplane" reflectance="0." texture="texplane" texrepeat="1 1" texuniform="true" />
+    <material name="visualgeom" rgba="0.5 0.9 0.2 1" />
+  </asset>
+
+  <worldbody>
+    <body name="link_base" pos="0 0 0.025783594134943882" quat="1 0 0 0">
+      <!-- base 固定，无 freejoint -->
+      <site name="imu" size="0.01" pos="0 0 0" />
+      <geom type="mesh" rgba="1 1 1 1" mesh="link_base" contype="1" conaffinity="0" density="0" group="1" class="visualgeom" />
+      <geom type="mesh" rgba="1 1 1 1" mesh="link_base" />
+      <body name="link1" pos="0 0 0.364">
+        <inertial pos="5.7e-05 0.013842 -0.02055" quat="0.999624 -0.0273411 -0.000364635 -0.00185749" mass="4.807" diaginertia="0.0220018 0.0189206 0.0122503" />
+        <joint name="joint1" pos="0 0 0" axis="0 0 1" range="-6.28319 6.28319" actuatorfrcrange="-200 200" damping="16.6" frictionloss="9.6" />
+        <geom type="mesh" rgba="1 1 1 1" mesh="link1" contype="1" conaffinity="0" density="0" group="1" class="visualgeom" />
+        <geom type="mesh" rgba="1 1 1 1" mesh="link1" />
+        <body name="link2" quat="0.499998 0.5 -0.5 0.500002">
+          <inertial pos="0.323425 9.5e-05 0.007586" quat="0.463878 0.532622 0.539126 0.458775" mass="3.28" diaginertia="0.0642088 0.0624144 0.00637301" />
+          <joint name="joint2" pos="0 0 0" axis="0 0 1" range="-2.30383 2.30383" actuatorfrcrange="-200 200" damping="12.5" frictionloss="12.1" />
+          <geom type="mesh" rgba="1 1 1 1" mesh="link2" contype="1" conaffinity="0" density="0" group="1" class="visualgeom" />
+          <geom type="mesh" rgba="1 1 1 1" mesh="link2" />
+          <body name="link3" pos="0.39 0 0" quat="-2.59734e-06 -0.707105 0.707108 2.59735e-06">
+            <inertial pos="0.128834 0.11341 0.00978" quat="0.781477 0.318832 -0.496505 0.202789" mass="2.237" diaginertia="0.0155188 0.0144822 0.00312732" />
+            <joint name="joint3" pos="0 0 0" axis="0 0 1" range="-4.2237 0.061087" actuatorfrcrange="-90 90" damping="4" frictionloss="5.5" />
+            <geom type="mesh" rgba="1 1 1 1" mesh="link3" contype="1" conaffinity="0" density="0" group="1" class="visualgeom" />
+            <geom type="mesh" rgba="1 1 1 1" mesh="link3" />
+            <body name="link4" pos="0.15 0.426 0" quat="0.707105 -0.707108 0 0">
+              <inertial pos="0.000266 -0.03833 -0.101915" quat="0.983546 0.180625 -0.00118669 -0.00323727" mass="2.041" diaginertia="0.0199188 0.0197497 0.00204912" />
+              <joint name="joint4" pos="0 0 0" axis="0 0 1" range="-6.28319 6.28319" actuatorfrcrange="-68 68" damping="3.6" frictionloss="2.2" />
+              <geom type="mesh" rgba="1 1 1 1" mesh="link4" contype="1" conaffinity="0" density="0" group="1" class="visualgeom" />
+              <geom type="mesh" rgba="1 1 1 1" mesh="link4" />
+              <body name="link5" quat="0.707105 -0.707108 0 0">
+                <inertial pos="5.7e-05 -0.015267 -0.001015" quat="0.709629 0.704516 0.00436677 -0.00807823" mass="1.385" diaginertia="0.00207749 0.00203574 0.00110911" />
+                <joint name="joint5" pos="0 0 0" axis="0 0 1" range="-2.1642 2.1642" actuatorfrcrange="-19 19" damping="3.45" frictionloss="3.2" />
+                <geom type="mesh" rgba="1 1 1 1" mesh="link5" contype="1" conaffinity="0" density="0" group="1" class="visualgeom" />
+                <geom type="mesh" rgba="1 1 1 1" mesh="link5" />
+                <body name="link6" pos="0 -0.09 0" quat="0.707105 0.707108 0 0">
+                  <inertial pos="0.000484 -0.000334 -0.014217" quat="0.63763 0.308332 -0.636717 0.30488" mass="0.225" diaginertia="0.000232503 0.000133671 0.000124886" />
+                  <joint name="joint6" pos="0 0 0" axis="0 0 1" range="-6.28319 6.28319" actuatorfrcrange="-19 19" damping="3.4" frictionloss="1.1" />
+                  <geom type="mesh" rgba="1 1 1 1" mesh="link6" contype="1" conaffinity="0" density="0" group="1" class="visualgeom" />
+                  <geom type="mesh" rgba="1 1 1 1" mesh="link6" />
+                  <site name="attachment_site"/>
+                </body>
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+    </body>
+  </worldbody>
+
+  <actuator>
+    <motor name="joint1" joint="joint1" ctrllimited="true" ctrlrange="-200 200" gear="1" />
+    <motor name="joint2" joint="joint2" ctrllimited="true" ctrlrange="-200 200" gear="1" />
+    <motor name="joint3" joint="joint3" ctrllimited="true" ctrlrange="-90 90" gear="1" />
+    <motor name="joint4" joint="joint4" ctrllimited="true" ctrlrange="-68 68" gear="1" />
+    <motor name="joint5" joint="joint5" ctrllimited="true" ctrlrange="-19 19" gear="1" />
+    <motor name="joint6" joint="joint6" ctrllimited="true" ctrlrange="-19 19" gear="1" />
+  </actuator>
+
+  <keyframe>
+    <key name="home" qpos="0 0 0 0 0 0" ctrl="0 0 0 0 0 0"/>
+  </keyframe>
+</mujoco>
