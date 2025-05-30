@@ -1,0 +1,114 @@
+<mujoco model="xarm6_nohand">
+  <compiler angle="radian" autolimits="true" meshdir="assets"/>
+  <option integrator="implicitfast"/>
+
+  <asset>
+    <material name="white" rgba="1 1 1 1"/>
+    <material name="gray" rgba="0.753 0.753 0.753 1"/>
+    <material name="black" rgba="0.149 0.149 0.149 1"/>
+    <mesh name="base" file="base.stl"/>
+    <mesh name="base_vhacd" file="base_vhacd.obj"/>
+    <mesh name="link1" file="link1.stl"/>
+    <mesh name="link1_vhacd" file="link1_vhacd.obj"/>
+    <mesh name="link2" file="link2.stl"/>
+    <mesh name="link2_vhacd2" file="link2_vhacd2.obj"/>
+    <mesh name="link3" file="link3.stl"/>
+    <mesh name="link3_vhacd" file="link3_vhacd.obj"/>
+    <mesh name="link4" file="link4.stl"/>
+    <mesh name="link4_vhacd" file="link4_vhacd.obj"/>
+    <mesh name="link5" file="link5.stl"/>
+    <mesh name="link5_vhacd" file="link5_vhacd.obj"/>
+    <mesh name="link6" file="link6.stl"/>
+    <!-- gripper meshes are kept in asset, but not used in body -->
+  </asset>
+
+
+
+  <default>
+    <default class="xarm6">
+      <geom type="mesh" material="white"/>
+      <joint axis="0 0 1" range="-6.28319 6.28319" frictionloss="1"/>
+      <general biastype="affine" ctrlrange="-6.28319 6.28319"/>
+      <default class="size1">
+        <joint damping="10"/>
+        <general gainprm="1500" biasprm="0 -1500 -150" forcerange="-50 50"/>
+      </default>
+      <default class="size2">
+        <joint damping="5"/>
+        <general gainprm="1000" biasprm="0 -1000 -100" forcerange="-30 30"/>
+      </default>
+      <default class="size3">
+        <joint damping="2"/>
+        <general gainprm="800" biasprm="0 -800 -80" forcerange="-20 20"/>
+      </default>
+      <site size="0.001" rgba="1 0 0 1" group="4"/>
+    </default>
+  </default>
+
+  <worldbody>
+    <body name="link_base" pos="0 0 .12" childclass="xarm6">
+      <inertial pos="0 0 0.09103" quat="0.981065 0.000747228 -0.0021866 -0.193666" mass="2.7"
+        diaginertia="0.00495024 0.00494031 0.00221894"/>
+      <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="1 1 1 1" mesh="base"/>
+      <body name="link1" pos="0 0 0.267">
+        <inertial pos="-0.002 0.02692 -0.01332" quat="0.983139 0.180751 -0.00455228 0.0272976" mass="2.16"
+          diaginertia="0.00539487 0.00519906 0.00281397"/>
+        <joint name="joint1" pos="0 0 0" axis="0 0 1" range="-6.28319 6.28319" actuatorfrcrange="-50 50" damping="1"
+          frictionloss="1"/>
+        <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="1 1 1 1" mesh="link1"/>
+        <body name="link2" quat="0.707105 -0.707108 0 0">
+          <inertial pos="0.03531 -0.21398 0.03386" quat="0.71118 0.614686 0.139936 -0.311132" mass="1.71"
+            diaginertia="0.017867 0.017867 0.017867"/>
+          <joint name="joint2" pos="0 0 0" axis="0 0 1" range="-2.059 2.0944" actuatorfrcrange="-50 50" damping="1"
+            frictionloss="1"/>
+          <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="1 1 1 1" mesh="link2"/>
+          <body name="link3" pos="0.0535 -0.2845 0">
+            <inertial pos="0.06781 0.10749 0.01457" quat="0.119516 0.409082 -0.734824 0.527638" mass="1.384"
+              diaginertia="0.004543 0.004543 0.004543"/>
+            <joint name="joint3" pos="0 0 0" axis="0 0 1" range="-3.927 0.19198" actuatorfrcrange="-32 32" damping="1"
+              frictionloss="1"/>
+            <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="1 1 1 1" mesh="link3"/>
+            <body name="link4" pos="0.0775 0.3425 0" quat="0.707105 -0.707108 0 0">
+              <inertial pos="-0.00021 0.02578 -0.02538" quat="0.994019 0.0752563 -0.00686804 0.0788347" mass="1.115"
+                diaginertia="0.00440091 0.00406855 0.00103407"/>
+              <joint name="joint4" pos="0 0 0" axis="0 0 1" range="-6.28319 6.28319" actuatorfrcrange="-32 32"
+                damping="1" frictionloss="1"/>
+              <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="1 1 1 1" mesh="link4"/>
+              <body name="link5" quat="0.707105 0.707108 0 0">
+                <inertial pos="0.05428 0.01781 0.00543" quat="-0.0766302 0.578118 -0.269638 0.766291" mass="1.275"
+                  diaginertia="0.00289757 0.0023276 0.000951789"/>
+                <joint name="joint5" pos="0 0 0" axis="0 0 1" range="-1.69297 3.14159" actuatorfrcrange="-32 32"
+                  damping="1" frictionloss="1"/>
+                <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="1 1 1 1" mesh="link5"/>
+                <body name="link6" pos="0.076 0.097 0" quat="0.707105 -0.707108 0 0">
+                  <inertial pos="0 0.00064 -0.00952" quat="0 0.707107 0 0.707107" mass="0.1096"
+                    diaginertia="7.9715e-05 4.8111e-05 4.5293e-05"/>
+                  <joint name="joint6" pos="0 0 0" axis="0 0 1" range="-6.28319 6.28319" actuatorfrcrange="-20 20"
+                    damping="1" frictionloss="1"/>
+                  <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.753 0.753 0.753 1"
+                    mesh="link6"/>
+                  <geom type="mesh" rgba="0.753 0.753 0.753 1" mesh="link6"/>
+                  <!-- 末端加一个 site 作为 TCP/flange -->
+                  <site name="attachment_site" pos="0 0 0" size="0.01" rgba="1 0 0 1"/>
+                </body>
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+    </body>
+  </worldbody>
+
+  <actuator>
+    <general name="act1" joint="joint1" class="size1"/>
+    <general name="act2" joint="joint2" class="size1" ctrlrange="-2.059 2.0944"/>
+    <general name="act3" joint="joint3" class="size2"/>
+    <general name="act4" joint="joint4" class="size2" ctrlrange="-0.19198 3.927"/>
+    <general name="act5" joint="joint5" class="size2"/>
+    <general name="act6" joint="joint6" class="size3" ctrlrange="-1.69297 3.14159"/>
+  </actuator>
+  
+  <keyframe>
+  <key name="home" qpos="-1.5708 -1.5708 1.5708 -1.5708 -1.5708 0" ctrl="-1.5708 -1.5708 1.5708 -1.5708 -1.5708 0"/>
+  </keyframe>
+</mujoco>
