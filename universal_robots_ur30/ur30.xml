@@ -124,10 +124,10 @@
           <body name="forearm_link" pos="0 -0.2197 0.637">
             <inertial pos="0 0 -0.25185" mass="7.156" diaginertia="0.161361 0.161361 0.0201262" />
             <joint name="elbow_joint" class="size3_limited"/>
-            <geom mesh="forearm_0" material="linkgray" class="visual"/>
+            <geom mesh="forearm_0" material="urblue" class="visual"/>
             <geom mesh="forearm_1" material="linkgray" class="visual"/>
-            <geom mesh="forearm_2" material="linkgray" class="visual"/>
-            <geom mesh="forearm_3" material="linkgray" class="visual"/>
+            <geom mesh="forearm_2" material="urblue" class="visual"/>
+            <geom mesh="forearm_3" material="urblue" class="visual"/>
             <geom mesh="forearm_4" material="jointgray" class="visual"/>
             <geom mesh="forearm_5" material="urblue" class="visual"/>
             <geom mesh="forearm_6" material="black" class="visual"/>
