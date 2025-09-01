@@ -205,8 +205,8 @@ def main():
     
     ur30 = UniversalRobot(
         "UR30",
-        os.path.join(current_dir, "..", "universal_robots_ur30", "ur30.xml"),
-        os.path.join(current_dir, "..", "universal_robots_ur30", "scene.xml")
+        os.path.join(current_dir, "..", "universal_robots_ur30", "ur30_fixed.xml"),
+        os.path.join(current_dir, "..", "universal_robots_ur30", "scene_fixed.xml")
     )
     
     # Load models

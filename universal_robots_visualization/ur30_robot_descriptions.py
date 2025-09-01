@@ -34,7 +34,7 @@ def load_ur30_from_menagerie():
     current_dir = os.path.dirname(os.path.abspath(__file__))
     # Go up one directory to reach the menagerie root
     menagerie_dir = os.path.dirname(current_dir)
-    ur30_path = os.path.join(menagerie_dir, "universal_robots_ur30", "ur30.xml")
+    ur30_path = os.path.join(menagerie_dir, "universal_robots_ur30", "ur30_fixed.xml")
     
     if os.path.exists(ur30_path):
         print("Loading UR30 robot from MuJoCo Menagerie...")
