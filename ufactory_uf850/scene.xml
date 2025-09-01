@@ -1,6 +1,6 @@
-<mujoco model="uf850_nohand scene">
+<mujoco model="ufactory_uf850 scene">
 
-  <include file="uf850_nohand.xml"/>
+  <include file="uf850.xml"/>
 
   <statistic center="0.2 0 0.4" extent=".65"/>
 
