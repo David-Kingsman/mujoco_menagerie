@@ -7,9 +7,8 @@
     <default class="ur30">
       <material specular="0.5" shininess="0.25"/>
       <joint axis="0 1 0" range="-6.28319 6.28319" armature="0.1"/>
-      <position ctrlrange="-6.2831 6.2831"/>
-      <general biastype="affine" ctrlrange="-6.2831 6.2831" gainprm="5000" biasprm="0 -5000 -500"/>
-
+      <general gaintype="fixed" biastype="affine" ctrlrange="-6.2831 6.2831" 
+               gainprm="5000" biasprm="0 -5000 -500" forcerange="-330 330"/>
       <default class="size4">
         <joint damping="10"/>
         <general forcerange="-330 330"/>
@@ -19,12 +18,15 @@
         <general forcerange="-150 150"/>
         <default class="size3_limited">
           <joint range="-3.1415 3.1415"/>
-          <general ctrlrange="-3.1415 3.1415"/>
+          <general ctrlrange="-3.1415 3.2831"/>
         </default>
       </default>
       <default class="size2">
         <joint damping="2"/>
         <general forcerange="-56 56"/>
+      </default>
+      <default class="size1">
+        <general gainprm="500" biasprm="0 -500 -100" forcerange="-28 28"/>
       </default>
       <default class="visual">
         <geom type="mesh" contype="0" conaffinity="0" group="2"/>
@@ -45,7 +47,8 @@
     <material class="ur30" name="linkgray" rgba="0.82 0.82 0.82 1"/>
     <material class="ur30" name="urblue" rgba="0.49 0.678 0.8 1"/>
 
-    <!-- Automatically linked meshes -->
+    <!-- add mesh files -->
+    <mesh file="base_0.obj" name="base_0"/>
     <mesh file="base_1.obj" name="base_1"/>
     <mesh file="base_2.obj" name="base_2"/>
     <mesh file="base_3.obj" name="base_3"/>
@@ -54,6 +57,7 @@
     <mesh file="base_6.obj" name="base_6"/>
 
     <mesh file="shoulder_0.obj" name="shoulder_0"/>
+    <mesh file="shoulder_1.obj" name="shoulder_1"/>
     <mesh file="shoulder_2.obj" name="shoulder_2"/>
 
     <mesh file="upperarm_0.obj" name="upperarm_0"/>
@@ -79,6 +83,7 @@
 
     <mesh file="wrist2_0.obj" name="wrist2_0"/>
     <mesh file="wrist2_1.obj" name="wrist2_1"/>
+    <mesh file="wrist2_2.obj" name="wrist2_2"/>
     <mesh file="wrist2_3.obj" name="wrist2_3"/>
     <mesh file="wrist2_4.obj" name="wrist2_4"/>
     <mesh file="wrist2_5.obj" name="wrist2_5"/>
@@ -92,25 +97,31 @@
 
   <worldbody>
     <light name="spotlight" mode="targetbodycom" target="wrist_2_link" pos="0 -1 2"/>
-    <body name="base" quat="1 0 0 0" childclass="ur30"> 
-       <inertial mass="4.0" pos="0 0 0" diaginertia="0.0061063308908 0.0061063308908 0.01125"/>
-      <geom mesh="base_1" material="black" class="visual"/>
+    <body name="base" quat="0 0 0 -1" childclass="ur30">
+      <inertial mass="4.0" pos="0 0 0" diaginertia="0.00443333156 0.00443333156 0.0072"/>
+      <!-- fix duplicate definition, add base_0 -->
+      <geom mesh="base_0" material="black" class="visual"/>
       <geom mesh="base_1" material="black" class="visual"/>
       <geom mesh="base_2" material="black" class="visual"/>
       <geom mesh="base_3" material="black" class="visual"/>
       <geom mesh="base_4" material="jointgray" class="visual"/>
       <geom mesh="base_5" material="jointgray" class="visual"/>
       <geom mesh="base_6" material="jointgray" class="visual"/>
+      <!-- add collision geometry -->
+      <geom class="collision" size="0.078 0.08" pos="0 0 -0.05"/>
 
       <body name="shoulder_link" pos="0 0 0.2363">
-        <inertial pos="0 0 0" mass="16.343" diaginertia="0.0661333 0.0661333 0.0459647" />
+        <inertial pos="0 0 0" mass="16.343" diaginertia="0.0102675 0.0102675 0.00666" />
         <joint name="shoulder_pan_joint" class="size4" axis="0 0 1"/>
-        <geom mesh="shoulder_0" material="black" class="visual"/>
+        <geom mesh="shoulder_0" material="urblue" class="visual"/>
+        <geom mesh="shoulder_1" material="black" class="visual"/>
         <geom mesh="shoulder_2" material="jointgray" class="visual"/>
+        <!-- add collision geometry -->
+        <geom class="collision" size="0.078 0.08" pos="0 0 -0.05"/>
       
 
         <body name="upper_arm_link" pos="0 0.2629 0" quat="0.707107 0 0.707107 0">
-          <inertial pos="0 0 -0.3185" mass="28.542" diaginertia="1.00526 1.00526 0.0802744" />
+          <inertial pos="0 0 -0.3185" mass="28.542" diaginertia="0.133886 0.133886 0.0151074" />
           <joint name="shoulder_lift_joint" class="size4"/>
           <geom mesh="upperarm_0" material="jointgray" class="visual"/>
           <geom mesh="upperarm_1" material="jointgray" class="visual"/>
@@ -118,11 +129,14 @@
           <geom mesh="upperarm_3" material="black" class="visual"/>
           <geom mesh="upperarm_4" material="jointgray" class="visual"/>
           <geom mesh="upperarm_5" material="linkgray" class="visual"/>
+          <!-- add collision geometry -->
+          <geom class="collision" pos="0 -0.05 0" quat="1 1 0 0" size="0.078 0.08"/>
+          <geom class="collision" size="0.06 0.3" pos="0 0 0.3"/>
        
 
 
           <body name="forearm_link" pos="0 -0.2197 0.637">
-            <inertial pos="0 0 -0.25185" mass="7.156" diaginertia="0.161361 0.161361 0.0201262" />
+            <inertial pos="0 0 -0.25185" mass="7.156" diaginertia="0.0311796 0.0311796 0.004095" />
             <joint name="elbow_joint" class="size3_limited"/>
             <geom mesh="forearm_0" material="urblue" class="visual"/>
             <geom mesh="forearm_1" material="linkgray" class="visual"/>
@@ -131,39 +145,49 @@
             <geom mesh="forearm_4" material="jointgray" class="visual"/>
             <geom mesh="forearm_5" material="urblue" class="visual"/>
             <geom mesh="forearm_6" material="black" class="visual"/>
+            <!-- add collision geometry -->
+            <geom class="collision" pos="0 0.08 0" quat="1 1 0 0" size="0.058 0.065"/>
+            <geom class="collision" size="0.043 0.28" pos="0 0 0.29"/>
          
 
             <body name="wrist_1_link" pos="0 0 0.5037" quat="0.707107 0 0.707107 0">
-              <inertial pos="0 0.1578 0" quat="0.5 0.5 -0.5 0.5" mass="3.054" diaginertia="0.00858937 0.00795948 0.00795948" />
+              <inertial pos="0 0.1578 0" quat="0.5 0.5 -0.5 0.5" mass="3.054" diaginertia="0.0025599 0.0025599 0.0021942" />
               <joint name="wrist_1_joint" class="size2"/>
               <geom mesh="wrist1_0" material="black" class="visual"/>
               <geom mesh="wrist1_1" material="black" class="visual"/>
               <geom mesh="wrist1_2" material="jointgray" class="visual"/>
               <geom mesh="wrist1_3" material="jointgray" class="visual"/>
               <geom mesh="wrist1_4" material="urblue" class="visual"/>
+              <!-- add collision geometry -->
+              <geom class="collision" pos="0 0.06 0" quat="1 1 0 0" size="0.05 0.07"/>
            
 
 
               <body name="wrist_2_link" pos="0 0.1578 0">
-                <inertial pos="0 0 0.1593" quat="0.5 0.5 -0.5 0.5" mass="3.126" diaginertia="0.00879187 0.00814713 0.00814713" />
+                <inertial pos="0 0 0.1593" quat="0.5 0.5 -0.5 0.5" mass="3.126" diaginertia="0.0025599 0.0025599 0.0021942" />
                 <joint name="wrist_2_joint" class="size2" axis="0 0 1"/>
                 <geom mesh="wrist2_0" material="black" class="visual"/>
                 <geom mesh="wrist2_1" material="black" class="visual"/>
+                <geom mesh="wrist2_2" material="jointgray" class="visual"/>
                 <geom mesh="wrist2_3" material="jointgray" class="visual"/>
                 <geom mesh="wrist2_4" material="jointgray" class="visual"/>
                 <geom mesh="wrist2_5" material="jointgray" class="visual"/>
+                <!-- 添加碰撞几何体 -->
+                <geom class="collision" size="0.046 0.065" pos="0 0 0.05"/>
+                <geom class="collision" pos="0 0.028 0.12" quat="1 1 0 0" size="0.046 0.043"/>
               
 
 
                 <body name="wrist_3_link" pos="0 0 0.1593">
-                  <inertial pos="0 0.129316 0" quat="0.5 0.5 -0.5 0.5" mass="0.927" diaginertia="0.000937816 0.000661945 0.000661721" />
+                  <inertial pos="0 0.129316 0" quat="0.5 0.5 -0.5 0.5" mass="0.927" diaginertia="0.000132134 9.90863e-05 9.90863e-05" />
                   <joint name="wrist_3_joint" class="size2"/>
                   <geom mesh="wrist3_0" material="linkgray" class="visual"/>
                   <geom mesh="wrist3_1" material="linkgray" class="visual"/>
                   <geom mesh="wrist3_2" material="linkgray" class="visual"/>
                   <geom mesh="wrist3_3" material="linkgray" class="visual"/>
                   <geom mesh="wrist3_4" material="linkgray" class="visual"/>
-                
+                  <!-- 添加碰撞几何体 -->
+                  <geom class="eef_collision" pos="0 0.097 0" quat="1 1 0 0" size="0.046 0.02"/>
                   <site name="attachment_site" pos="0 0.1 0" quat="-1 1 0 0"/>
                 </body>
               </body>
